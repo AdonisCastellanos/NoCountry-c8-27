@@ -1,7 +1,15 @@
+import { Col, Container, Row } from 'react-bootstrap';
+import Oferta from '../components/Card/Oferta';
+
 export default function Home() {
     return (
-        <div>
-            <h2>Pagina principal</h2>
-        </div>
+        <Container>
+            <Row className="justify-content-center">
+                <Col md={4}>
+                    <Oferta />
+                    <Oferta />
+                </Col>
+            </Row>
+        </Container>
     );
 }
