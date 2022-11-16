@@ -1,12 +1,7 @@
-
-import Link from 'next/link'
-import NavBar from '../components/Navbar'
 export default function Home() {
-  return (
+    return (
         <div>
-         
-         <NavBar/>
-
+            <h2>Pagina principal</h2>
         </div>
-  )
+    );
 }
