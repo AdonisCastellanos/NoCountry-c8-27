@@ -9,6 +9,8 @@ import com.nocountry.promoving_a_job.repository.CompanyRepository;
 import com.nocountry.promoving_a_job.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,18 +18,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
 
     private final CommentRepository commentRepository;
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
 
-    public CommentService(final CommentRepository commentRepository,
-            final CompanyRepository companyRepository, final UserRepository userRepository) {
-        this.commentRepository = commentRepository;
-        this.companyRepository = companyRepository;
-        this.userRepository = userRepository;
-    }
 
     public List<CommentDTO> findAll() {
         return commentRepository.findAll(Sort.by("id"))

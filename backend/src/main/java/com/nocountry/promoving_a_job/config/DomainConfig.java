@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@EntityScan("com.nocountry.promoving_a_job.domain")
-@EnableJpaRepositories("com.nocountry.promoving_a_job.repos")
+@EntityScan("com.nocountry.promoving_a_job.entity")
+@EnableJpaRepositories("com.nocountry.promoving_a_job.repository")
 @EnableTransactionManagement
 @EnableJpaAuditing(dateTimeProviderRef = "auditingDateTimeProvider")
 public class DomainConfig {
