@@ -2,13 +2,8 @@ package com.nocountry.promoving_a_job.entity;
 
 import java.time.OffsetDateTime;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -45,8 +40,10 @@ public class JobOffer {
     @Column
     private String expirationDate;
 
-    @OneToMany(mappedBy = "offerCompany")
-    private Set<Company> offerCompanyCompanys;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", nullable = false)
+    private JobOffer offerCompanyCompanys;
+
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

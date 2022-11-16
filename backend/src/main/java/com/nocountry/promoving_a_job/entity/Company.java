@@ -58,7 +58,7 @@ public class Company {
     @ManyToMany(mappedBy = "userCompanyCompanys")
     private Set<User> userCompanyUsers;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToMany
     @JoinColumn(name = "offer_company_id", nullable = false)
     private JobOffer offerCompany;
 
