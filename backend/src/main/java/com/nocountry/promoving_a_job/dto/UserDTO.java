@@ -32,6 +32,6 @@ public class UserDTO {
     @Size(max = 255)
     private String country;
 
-    private List<Long> userCompanys;
+    private List<Long> companies;
 
 }

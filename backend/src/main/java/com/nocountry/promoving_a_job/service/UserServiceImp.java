@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,16 +19,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Transactional
 @Service
+@RequiredArgsConstructor
 public class UserServiceImp implements UserService{
 
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
-
-    public UserServiceImp(final UserRepository userRepository,
-                          final CompanyRepository companyRepository) {
-        this.userRepository = userRepository;
-        this.companyRepository = companyRepository;
-    }
 
     public List<UserDTO> findAll() {
         return userRepository.findAll(Sort.by("id"))
@@ -65,7 +62,7 @@ public class UserServiceImp implements UserService{
         userDTO.setPassword(user.getPassword());
         userDTO.setPhone(user.getPhone());
         userDTO.setCountry(user.getCountry());
-        userDTO.setUserCompanys(user.getUserCompanyCompanys() == null ? null : user.getUserCompanyCompanys().stream()
+        userDTO.setCompanies(user.getCompanies() == null ? null : user.getCompanies().stream()
                 .map(company -> company.getId())
                 .collect(Collectors.toList()));
         return userDTO;
@@ -77,12 +74,12 @@ public class UserServiceImp implements UserService{
         user.setPassword(userDTO.getPassword());
         user.setPhone(userDTO.getPhone());
         user.setCountry(userDTO.getCountry());
-        final List<Company> userCompanys = companyRepository.findAllById(
-                userDTO.getUserCompanys() == null ? Collections.emptyList() : userDTO.getUserCompanys());
-        if (userCompanys.size() != (userDTO.getUserCompanys() == null ? 0 : userDTO.getUserCompanys().size())) {
+        final List<Company> userCompanies = companyRepository.findAllById(
+                userDTO.getCompanies() == null ? Collections.emptyList() : userDTO.getCompanies());
+        if (userCompanies.size() != (userDTO.getCompanies() == null ? 0 : userDTO.getCompanies().size())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "one of userCompanys not found");
         }
-        user.setUserCompanyCompanys(userCompanys.stream().collect(Collectors.toSet()));
+        user.setCompanies(userCompanies.stream().collect(Collectors.toSet()));
         return user;
     }
 

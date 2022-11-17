@@ -7,16 +7,16 @@ import java.util.List;
 public interface UserService {
 
 
-    public List<UserDTO> findAll() ;
+    List<UserDTO> findAll() ;
 
-    public UserDTO get(final Long id) ;
+    UserDTO get(final Long id) ;
 
-    public Long create(final UserDTO userDTO) ;
+    Long create(final UserDTO userDTO) ;
 
-    public void update(final Long id, final UserDTO userDTO) ;
+    void update(final Long id, final UserDTO userDTO) ;
 
-    public void delete(final Long id);
+    void delete(final Long id);
 
-    public boolean emailExists(final String email);
+    boolean emailExists(final String email);
 
 }

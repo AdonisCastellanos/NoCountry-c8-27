@@ -35,12 +35,12 @@ public class Comment {
     private Integer rate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_comments_id", nullable = false)
-    private Company companyComments;
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_comments_id")
-    private User userComments;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

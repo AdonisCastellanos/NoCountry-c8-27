@@ -5,6 +5,8 @@ import com.nocountry.promoving_a_job.service.JobOfferService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import javax.validation.Valid;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/jobOffers", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 public class JobOfferController {
 
     private final JobOfferService jobOfferService;
 
-    public JobOfferController(final JobOfferService jobOfferService) {
-        this.jobOfferService = jobOfferService;
-    }
 
     @GetMapping
     public ResponseEntity<List<JobOfferDTO>> getAllJobOffers() {

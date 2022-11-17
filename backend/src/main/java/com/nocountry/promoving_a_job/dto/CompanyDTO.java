@@ -5,6 +5,8 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -39,7 +41,6 @@ public class CompanyDTO {
 
     private Integer validation;
 
-    @NotNull
-    private Long offerCompany;
+    private List<Long> jobOffers;
 
 }

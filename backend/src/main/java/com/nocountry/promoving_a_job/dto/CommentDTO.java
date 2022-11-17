@@ -20,8 +20,8 @@ public class CommentDTO {
     private Integer rate;
 
     @NotNull
-    private Long companyComments;
+    private Long company;
 
-    private Long userComments;
+    private Long user;
 
 }

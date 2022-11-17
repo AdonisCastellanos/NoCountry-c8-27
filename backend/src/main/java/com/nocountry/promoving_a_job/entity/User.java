@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -52,11 +51,11 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "company_id")
     )
-    private Set<Company> userCompanyCompanys;
+    private Set<Company> companies;
 
-    @OneToMany(mappedBy = "userComments")
-    private Set<Comment> userCommentsComments;
-
+    /*@OneToMany(mappedBy = "userComments")
+    private Set<Comment> userComments;
+    */
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private OffsetDateTime dateCreated;

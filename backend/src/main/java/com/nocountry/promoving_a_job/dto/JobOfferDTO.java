@@ -33,4 +33,8 @@ public class JobOfferDTO {
     @Size(max = 255)
     private String expirationDate;
 
+
+    @NotNull
+    private Long company;
+
 }

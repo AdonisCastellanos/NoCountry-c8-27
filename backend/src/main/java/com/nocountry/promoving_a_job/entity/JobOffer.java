@@ -1,7 +1,6 @@
 package com.nocountry.promoving_a_job.entity;
 
 import java.time.OffsetDateTime;
-import java.util.Set;
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -41,8 +40,8 @@ public class JobOffer {
     private String expirationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
-    private JobOffer offerCompanyCompanys;
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
 
 
     @CreatedDate

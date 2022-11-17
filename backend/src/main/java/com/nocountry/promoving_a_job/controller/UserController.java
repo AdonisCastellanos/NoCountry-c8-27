@@ -2,10 +2,11 @@ package com.nocountry.promoving_a_job.controller;
 
 import com.nocountry.promoving_a_job.dto.UserDTO;
 import com.nocountry.promoving_a_job.service.UserService;
-import com.nocountry.promoving_a_job.service.UserServiceImp;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import javax.validation.Valid;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(final UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {

@@ -9,9 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,15 +53,15 @@ public class Company {
     @Column
     private Integer validation;
 
-    @ManyToMany(mappedBy = "userCompanyCompanys")
-    private Set<User> userCompanyUsers;
+    @ManyToMany(mappedBy = "companies", fetch = FetchType.LAZY)
+    private Set<User> users;
 
-    @OneToMany
-    @JoinColumn(name = "offer_company_id", nullable = false)
-    private JobOffer offerCompany;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    //@JoinColumn(name = "offer_id", nullable = false)
+    private Set<JobOffer> jobOffers;
 
-    @OneToMany(mappedBy = "companyComments")
-    private Set<Comment> companyCommentsComments;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private Set<Comment> Comments;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

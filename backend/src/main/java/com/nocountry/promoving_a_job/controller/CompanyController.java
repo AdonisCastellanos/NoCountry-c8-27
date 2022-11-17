@@ -5,6 +5,8 @@ import com.nocountry.promoving_a_job.service.CompanyService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import javax.validation.Valid;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/companys", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 public class CompanyController {
 
     private final CompanyService companyService;
-
-    public CompanyController(final CompanyService companyService) {
-        this.companyService = companyService;
-    }
 
     @GetMapping
     public ResponseEntity<List<CompanyDTO>> getAllCompanys() {
