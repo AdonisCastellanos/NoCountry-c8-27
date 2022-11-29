@@ -16,3 +16,6 @@ info:
 spring:
   profiles:
     active: prod
+app:
+  jwt-secret: clavesupersecretadelaaplicacion
+  jwt-expiration-milliseconds: 604800000
