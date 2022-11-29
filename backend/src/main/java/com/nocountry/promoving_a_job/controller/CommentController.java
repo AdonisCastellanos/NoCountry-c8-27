@@ -32,6 +32,10 @@ public class CommentController {
         return ResponseEntity.ok(commentService.findAll());
     }
 
+    @GetMapping("company/{id}")
+    public ResponseEntity<List<CommentDTO>> getCompanyComments(@PathVariable final Long companyId) {
+        return ResponseEntity.ok(commentService.getByCompany(companyId));
+    }
     @GetMapping("/{id}")
     public ResponseEntity<CommentDTO> getComment(@PathVariable final Long id) {
         return ResponseEntity.ok(commentService.get(id));

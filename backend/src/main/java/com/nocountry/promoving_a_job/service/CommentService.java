@@ -11,6 +11,8 @@ public interface CommentService {
 
     CommentDTO get(final Long id);
 
+    List<CommentDTO> getByCompany(final Long companyId);
+
     Long create(final CommentDTO commentDTO);
     void update(final Long id, final CommentDTO commentDTO);
 

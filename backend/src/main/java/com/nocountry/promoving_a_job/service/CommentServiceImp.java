@@ -13,11 +13,15 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
+
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CommentServiceImp implements CommentService{
 
@@ -39,21 +43,58 @@ public class CommentServiceImp implements CommentService{
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    public List<CommentDTO> getByCompany(final Long companyId) {
+        return commentRepository.findByCompany(companyId)
+                .stream()
+                .map(comment -> mapToDTO(comment, new CommentDTO()))
+                .collect(Collectors.toList());
+    }
+
     public Long create(final CommentDTO commentDTO) {
         final Comment comment = new Comment();
         mapToEntity(commentDTO, comment);
+
+        ValidatePermissions(comment,"create");
+
+        Company company = comment.getCompany();
+        company.setValidation(company.getValidation()+1);
+        companyRepository.save(company);
+
         return commentRepository.save(comment).getId();
     }
 
     public void update(final Long id, final CommentDTO commentDTO) {
         final Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        ValidatePermissions(comment,"update");
         mapToEntity(commentDTO, comment);
         commentRepository.save(comment);
     }
 
     public void delete(final Long id) {
+        final Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        ValidatePermissions(comment,"delete");
+
+        Company company = comment.getCompany();
+        company.setValidation(company.getValidation()-1);
+        companyRepository.save(company);
+
         commentRepository.deleteById(id);
+    }
+
+    private void ValidatePermissions(Comment comment,String action) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(comment.getUser()==null){
+            if(!companyRepository.existsUserByIdAndEmail(comment.getCompany().getId(), email))
+                throw new ResponseStatusException(HttpStatus. UNAUTHORIZED,"the user have not permission to "+action+" this comment");
+        }else{
+            if(!comment.getUser().getEmail().equalsIgnoreCase(email))
+                throw new ResponseStatusException(HttpStatus. UNAUTHORIZED,"the user have not permission to "+action+" this comment");
+        }
     }
 
     private CommentDTO mapToDTO(final Comment comment, final CommentDTO commentDTO) {

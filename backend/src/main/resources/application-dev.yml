@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL\:jdbc:mysql://localhost:3306/appdb}
+    username: ${JDBC_DATABASE_USERNAME\:admin}
+    password: ${JDBC_DATABASE_PASSWORD\:admin}
+    driver-class-name: com.mysql.jdbc.Driver
+    dbcp2:
+      max-wait-millis: 30000
+      validation-query: SELECT 1
+      validation-query-timeout: 30
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect #MySQL5InnoDBDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        id:
+          new_generator_mappings: true
+
+  sql:
+    init:
+      mode: always
+
+springdoc:
+  pathsToMatch: /api/**
+
+app:
+  jwt-secret: clavesupersecretadelaaplicacion
+  jwt-expiration-milliseconds: 604800000
