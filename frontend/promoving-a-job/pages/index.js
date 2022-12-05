@@ -1,3 +1,5 @@
+import { Col, Container, Row } from 'react-bootstrap';
+import Oferta from '../components/Card/Oferta';
 
 import { useState } from "react";
 import AppFooter from "../components/AppFooter";
@@ -26,7 +28,14 @@ export default function Home() {
         }
         
       </section>
-
+      <Container>
+            <Row className="justify-content-center">
+                <Col md={4}>
+                    <Oferta />
+                    <Oferta />
+                </Col>
+            </Row>
+        </Container>
       <AppFooter/>
     </div>
   );
