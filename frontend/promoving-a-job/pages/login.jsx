@@ -1,9 +1,13 @@
 
+import NavigationBar from "../components/NavigationBar";
 
-const empresa = () => {
+const login = () => {
   return (
-    <div>ingrrese como empresa</div>
-  )
-}
+    <div>
+      <NavigationBar />
+      <div>ingrese como empresa</div>
+    </div>
+  );
+};
 
-export default empresa
+export default login;

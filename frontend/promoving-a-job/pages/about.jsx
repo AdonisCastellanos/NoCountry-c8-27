@@ -1,8 +1,16 @@
 
+import NavigationBar from '../components/NavigationBar';
+
 
 const about = () => {
   return (
-    <div>about</div>
+    <div>
+      <NavigationBar/>   
+      <div className="container">
+
+        somos lo maximo
+      </div>
+    </div>
   )
 }
 
